@@ -1,0 +1,3 @@
+application: refcalc
+runtime: python312
+max_instances: 1
