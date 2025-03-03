@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from bin import slitoptimiser, utils
 
 
@@ -32,14 +32,48 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/slits")
+@app.route("/slits", methods=["POST", "GET"])
 def slits():
     dct = defaultd.copy()
+    if request.method == "POST":
+        dct = {k: v for k, v in request.form.items()}
+
     calculate_variables(dct)
     return render_template("angulator.html", d=dct)
 
 
-@app.route("/sld")
+@app.route("/singleslit", methods=["POST", "GET"])
+def singleslit():
+
+    if request.method == "GET":
+        return f"send a post request setting variables in ', {defaultd.keys()}"
+
+    elif request.method == "POST":
+        dct = defaultd.copy()
+        _form = {k: float(v) for k, v in request.form.items() if k in dct}
+
+        dct.update(_form)
+
+        d1, d2 = slitoptimiser.slitoptimiser(
+            dct["footprint"],
+            dct["resolution"],
+            angle=dct["a1"],
+            L12=dct["L12"],
+            L2S=dct["L2S"],
+            verbose=False,
+        )
+
+        postslit = slitoptimiser.height_of_beam_after_dx(
+            d1, d2, dct["L12"], dct["LS4"] + dct["L2S"]
+        )
+        preslit = slitoptimiser.height_of_beam_after_dx(
+            d1, d2, dct["L12"], -dct["LpreS1"]
+        )
+
+        return preslit[1], d1, d2, postslit[1]
+
+
+@app.route("/sld", methods=["POST", "GET"])
 def slds():
     return "shoop"
 
