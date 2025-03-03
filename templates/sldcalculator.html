@@ -1,0 +1,82 @@
+$def with (d)
+
+$code:
+    def volumetype_checked(d, requestedtype):
+        if d['volumetype'] == requestedtype:
+            return  'checked'
+        else:
+            return  ''
+
+    def decimal_display(val, n):
+        formatstr = '%.' + str(n) + 'f'
+        return formatstr % float(val)
+
+<html>
+    <head>
+        <title>Scattering Length Density Calculator</title>
+    </head>
+<body>
+
+<h3> Scattering Length Density Calculator </h2>
+<form action="/sld" method="POST">
+    Chemical Formula: <input type="text" name="formula" value = $d['formula']> e.g. use H[2]2O (or D2O) or deuterated water, H[3]2O (or T2O) for tritiated water
+    <br/>
+    Calculate using:
+    <input type="radio" name="volumetype" step = 0.0001 value="density" $volumetype_checked(d, 'density')> density
+    <input type="radio" name="volumetype" step = 0.0001 value="volume" $volumetype_checked(d, 'volume')> molecular volume
+    <br>
+    Mass density: <input type="number" name="density" step = 0.0001 value = $decimal_display(d['density'], 4)> g.cm<sup>-3</sup> &nbsp;&nbsp;
+    Molecular Volume: <input type="number" name="volume" step = 0.0001 value = $decimal_display(d['volume'], 4)> Å<sup>3</sup> &nbsp;&nbsp;
+    <br/>
+    X-ray energy: <input type="number" name="xray_energy" step=0.001 value = $d['xray_energy']> keV &nbsp;&nbsp;
+    <br/>
+    Neutron wavelength: <input type="number" name="neutron_wavelength" step=0.001 value = $d['neutron_wavelength']> Angstrom
+
+    <br/>
+    Neutron SLD: $d['neutron_sld'] * 10<sup>-6</sup> Å<sup>-2</sup>
+    <br/>
+    X-ray SLD: $d['xray_sld'] * 10<sup>-6</sup> Å<sup>-2</sup>
+    <br/>
+    <input type="submit"/>
+</form>
+
+The SLD calculations are performed by the <a href="https://github.com/pkienzle/periodictable">periodictable</a>
+python package:
+<br/>
+<br/>
+
+See also:
+<a href="http://ncnr.nist.gov/instruments/magik/Periodic.html">Periodic Table for Scattering</a><br/>
+and the <a href="http://www.ncnr.nist.gov/resources/activation/">NCNR SLD calculator</a><br/>
+To calculate molecular volume: V = M<sub>w</sub> / ρ /N<sub>a</sub> ⋅ (10<sup>8</sup>)<sup>3</sup>
+<br/>
+<br/>
+Mass density of:<br/>
+Si - 2.33 <br/>
+SiO2 - 2.2 <br/>
+Au - 19.33 <br/>
+Si3N4 - 3.44 <br/>
+D2O (25deg) - 1.107 <br/>
+H2O (25deg) - 0.997 <br/>
+C7H8 (toluene) - 0.87 <br/>
+SiO2 (quartz) - 2.65 <br/>
+Al2O3 (sapphire) - 3.97 <br/>
+C2H4O (PEO) - 1.13 <br/>
+SiC - 3.21 <br/>
+Al - 2.7 <br/>
+Cr - 7.19 <br/>
+V - 6 <br/>
+Ni - 8.908 <br/>
+Cu - 8.96 <br/>
+GaAs - 5.32 <br/>
+C2H3N (acetonitrile) - 0.782 <br/>
+C5O2H8 (PMMA) - 1.18 <br/>
+C8H8 (Polystyrene) - 1.05 <br/>
+C2F4 (Teflon) - 2.2 <br/>
+C82H14O2 (60-PCBM) - 1.61 <br/>
+C72H14O2 (70-PCBM) - 1.61 <br/>
+PDMS - 0.965 <br/>
+
+(Mostly from Wikipedia)
+</body>
+</html>

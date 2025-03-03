@@ -1,3 +1,4 @@
 application: refcalc
 runtime: python312
 max_instances: 1
+env: standard
