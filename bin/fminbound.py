@@ -1,18 +1,7 @@
 import numpy
 from numpy import (
     atleast_1d,
-    eye,
-    mgrid,
-    argmin,
-    zeros,
-    shape,
-    squeeze,
-    vectorize,
-    asarray,
     sqrt,
-    Inf,
-    asfarray,
-    isinf,
 )
 
 
