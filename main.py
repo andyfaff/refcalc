@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request
 from bin import slitoptimiser, utils
 
+import periodictable as pt
+
 
 # If `entrypoint` is not defined in app.yaml, App Engine will look for an app
 # called `app` in `main.py`.
@@ -49,6 +51,7 @@ def singleslit():
         return f"send a post request setting variables in ', {defaultd.keys()}"
 
     elif request.method == "POST":
+
         dct = defaultd.copy()
         _form = {k: float(v) for k, v in request.form.items() if k in dct}
 
@@ -70,12 +73,69 @@ def singleslit():
             d1, d2, dct["L12"], -dct["LpreS1"]
         )
 
-        return preslit[1], d1, d2, postslit[1]
+        return f"{(preslit[1], d1, d2, postslit[1])}"
 
 
 @app.route("/sld", methods=["POST", "GET"])
 def slds():
-    return "shoop"
+    if request.method == "GET":
+        d = {
+            "formula": "",
+            "density": 1.0,
+            "volume": 30.0,
+            "volumetype": "density",
+            "density_checked": "checked",
+            "volume_checked": "",
+            "xray_energy": 8.048,
+            "neutron_wavelength": 1.8,
+            "neutron_sld": 0.0 + 0.0 * 1j,
+            "xray_sld": 0.0 + 0.0 * 1j,
+        }
+        return render_template("sldcalculator.html", d=d)
+
+    elif request.method == "POST":
+        dct = {k: v for k, v in request.form.items()}
+
+        volumetype = dct["volumetype"]
+        if volumetype == "density":
+            dct["density_checked"] = "checked"
+            dct["volume_checked"] = ""
+        elif volumetype == "volume":
+            dct["density_checked"] = ""
+            dct["volume_checked"] = "checked"
+
+        dct["volume"] = volume = float(dct["volume"])
+        dct["density"] = density = float(dct["density"])
+
+        try:
+            formula = pt.formula(
+                dct["formula"],
+            )
+        except:
+            return render_template("sldcalculator.html", d=dct)
+
+        if volumetype == "volume":
+            density = formula.molecular_mass / formula.volume(a=volume, b=1, c=1)
+            dct["density"] = density
+        elif volumetype == "density":
+            volume = formula.mass / density / pt.constants.avogadro_number * 1e24
+            dct["volume"] = volume
+
+        try:
+            real, imag, mu = pt.neutron_sld(
+                formula, density=density, wavelength=float(dct["neutron_wavelength"])
+            )
+            dct["neutron_sld"] = real + imag * 1j
+
+            real, imag = pt.xray_sld(
+                formula, density=density, energy=float(dct["xray_energy"])
+            )
+
+            dct["xray_sld"] = real + imag * 1j
+        except (TypeError, AssertionError):
+            pass
+
+        return render_template("sldcalculator.html", d=dct)
 
 
 def calculate_variables(d):

@@ -1,4 +1,5 @@
 application: refcalc
 runtime: python312
+entrypoint: gunicorn -b :8080 main:app
 max_instances: 1
 env: standard
