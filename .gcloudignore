@@ -12,6 +12,12 @@
 # below:
 .git
 .gitignore
+.gitattributes
+
+
+.DS_Store
+.idea/
+.ruff_cache
 
 # Python pycache:
 __pycache__/
