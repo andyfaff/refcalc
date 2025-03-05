@@ -21,7 +21,9 @@
     <select name=instrument class=inputbox onchange='this.form.submit()' value={{d['instrument']}}>
         <option {% if d['instrument']=="Platypus" %}selected{% endif %}>Platypus</option>
         <option {% if d['instrument']=="Spatz" %}selected{% endif %}>Spatz</option>
-    </select><br><br>
+    </select>
+    {% if d['instrument']=="Platypus" %}L23 + L3S = 3134.8 mm{% endif %}
+    <br><br>
 
     L<sub>12</sub>: <input type="number" name="LpreS1" step=0.5 value = {{d['LpreS1']}}> mm
     L<sub>23</sub>: <input type="number" name="L12" step=0.5 value = {{d['L12']}}> mm
