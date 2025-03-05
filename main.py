@@ -1,3 +1,4 @@
+import tomllib
 from flask import Flask, render_template, request
 from bin import slitoptimiser, utils
 
@@ -10,16 +11,17 @@ app = Flask(__name__)
 
 
 defaultd = {
-    "L12": 2942.5,
-    "L2S": 193,
-    "LS4": 280.5,
-    "LpreS1": 2166,
+    "instrument": "Platypus",
+    # "L12": 2990.9,
+    # "L2S": 144,
+    # "LS4": 444.5,
+    # "LpreS1": 2166,
     "resolution": 0.033,
     "footprint": 50,
     "lambdamin": 2.8,
     "lambdamax": 18.5,
-    "a1": 0.5,
-    "a2": 2,
+    "a1": 0.8,
+    "a2": 3.5,
     "a3": 6,
     "a4": 1,
     "d1_a4": 1,
@@ -27,6 +29,9 @@ defaultd = {
     "SLD1": 0,
     "SLD2": 2.07,
 }
+with open("bin/config.toml", "rb") as f:
+    instrument_config = tomllib.load(f)
+defaultd.update(instrument_config["Platypus"])
 
 
 @app.route("/")
@@ -37,8 +42,16 @@ def index():
 @app.route("/slits", methods=["POST", "GET"])
 def slits():
     dct = defaultd.copy()
+
     if request.method == "POST":
         dct = {k: v for k, v in request.form.items()}
+        instrument = dct["instrument"]
+        if instrument != defaultd["instrument"]:
+            # we're changing the instrument type, update distances
+            defaultd["instrument"] = instrument
+            settings = instrument_config[instrument]
+            dct.update(settings)
+            defaultd.update(settings)
 
     calculate_variables(dct)
     return render_template("angulator.html", d=dct)

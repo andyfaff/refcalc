@@ -5,12 +5,27 @@
 <body>
 
 
-<img src="/static/images/angulator.png" alt="some_text">
+<img src="/static/images/angulator.png" alt="Schematic of collimation system">
 <h3> Angular stuff </h3>
+<!--<form action="/slits" method="POST">-->
+<!--    <label for="name">Preconfigured Instrument</label>- -->
+<!--    <select name=instrument class=inputbox onchange='this.form.submit()' value={{d['instrument']}}>-->
+<!--    <option {% if d['instrument']=="Platypus" %}selected{% endif %}>Platypus</option>-->
+<!--    <option {% if d['instrument']=="Spatz" %}selected{% endif %}>Spatz</option>-->
+<!--    </select><br><br>-->
+
+<!--</form>-->
+
 <form action="/slits" method="POST">
-    L<sub>12</sub>: <input type="number" name="LpreS1" step=0.5 value = {{d['LpreS1']}}> mm &nbsp;&nbsp;
-    L<sub>23</sub>: <input type="number" name="L12" step=0.5 value = {{d['L12']}}> mm &nbsp;&nbsp;
-    L<sub>3S</sub> <input type="number" name="L2S" step=0.5 value = {{d['L2S']}}> mm &nbsp;&nbsp;
+    <label for="name">Preconfigured Instrument</label>-
+    <select name=instrument class=inputbox onchange='this.form.submit()' value={{d['instrument']}}>
+        <option {% if d['instrument']=="Platypus" %}selected{% endif %}>Platypus</option>
+        <option {% if d['instrument']=="Spatz" %}selected{% endif %}>Spatz</option>
+    </select><br><br>
+
+    L<sub>12</sub>: <input type="number" name="LpreS1" step=0.5 value = {{d['LpreS1']}}> mm
+    L<sub>23</sub>: <input type="number" name="L12" step=0.5 value = {{d['L12']}}> mm
+    L<sub>3S</sub> <input type="number" name="L2S" step=0.5 value = {{d['L2S']}}> mm
     L<sub>S4</sub> <input type="number" name="LS4" step=0.5 value = {{d['LS4']}}> mm
 
     <br/>
