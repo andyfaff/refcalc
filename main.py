@@ -51,7 +51,7 @@ def slits():
             defaultd["instrument"] = instrument
             settings = instrument_config[instrument]
             dct.update(settings)
-            defaultd.update(settings)
+            #defaultd.update(settings)
 
     calculate_variables(dct)
     return render_template("angulator.html", d=dct)
