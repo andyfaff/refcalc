@@ -45,8 +45,8 @@ def slits():
 
     if request.method == "POST":
         dct = {k: v for k, v in request.form.items()}
-        instrument = dct["instrument"]
-        if instrument != defaultd["instrument"]:
+        instrument = dct.get("instrument", "Platypus")
+        if instrument != defaultd.get("instrument", "Platypus"):
             # we're changing the instrument type, update distances
             defaultd["instrument"] = instrument
             settings = instrument_config[instrument]
