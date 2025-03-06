@@ -15,6 +15,7 @@
         <option {% if d['instrument']=="Spatz" %}selected{% endif %}>Spatz</option>
     </select>
     {% if d['instrument']=="Platypus" %}L23 + L3S = 3134.8 mm{% endif %}
+    {% if d['instrument']=="Spatz" %}L23 + L3S = 3924 mm{% endif %}
     <br><br>
 
     L<sub>12</sub>: <input type="number" name="LpreS1" step=0.5 value = {{d['LpreS1']}}> mm
