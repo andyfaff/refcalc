@@ -27,8 +27,8 @@
     <br/>
     Desired dtheta/theta resolution (FWHM): <input type="number" name="resolution" step=0.001 value = {{d['resolution']}}>
     <br/>
-    Minimum wavelength: <input type="number" name="lambdamin" step=0.1 value = {{d['lambdamin']}}>
-    Maximum wavelength: <input type="number" name="lambdamax" step=0.1 value = {{d['lambdamax']}}>
+    Minimum wavelength: <input type="number" id="lambdamin" name="lambdamin" step=0.1 value = {{d['lambdamin']}}>
+    Maximum wavelength: <input type="number" id="lambdamax" name="lambdamax" step=0.1 value = {{d['lambdamax']}}>
     <br/>
     <table border ="2">
         <tr>
@@ -43,46 +43,46 @@
             <th> dtheta (FWHM) </th>
         </tr>
     <tr>
-        <td>Angle 1: <input type="number" name="a1" step=0.001 value = {{d['a1']}}></td>
+        <td>Angle 1: <input type="number" id="a1" name="a1" step=0.01 value = {{d['a1']}}></td>
         <td> {{d['preS1slit'][0][1] | round(3)}}</td>
         <td> {{d['slit1'][0] | round(3)}} </td>
         <td> {{d['slit2'][0] | round(3)}} </td>
         <td> {{d['postsampleslit'][0][1] | round(3)}}</td>
-        <td> {{d['minqvals'][0] | round(4)}} </td>
-        <td> {{d['maxqvals'][0] | round(4)}} </td>
+        <td> <span id="minQa1"></span> </td>
+        <td> <span id="maxQa1"></span> </td>
         <td/>
         <td border ="0"> {{d['dtheta'][0][0] | round(4)}} </td>
     </tr>
     <tr>
-        <td>Angle 2: <input type="number" name="a2" step=0.001 value = {{d['a2']}}></td>
+        <td>Angle 2: <input type="number" id="a2" name="a2" step=0.01 value = {{d['a2']}}></td>
         <td> {{d['preS1slit'][1][1] | round(3)}}</td>
         <td> {{d['slit1'][1] | round(3)}} </td>
         <td> {{d['slit2'][1] | round(3)}} </td>
         <td> {{d['postsampleslit'][1][1] | round(3)}}</td>
-        <td> {{d['minqvals'][1] | round(4)}} </td>
-        <td> {{d['maxqvals'][1] | round(4)}} </td>
+        <td> <span id="minQa2"></span> </td>
+        <td> <span id="maxQa2"></span> </td>
         <td border ="0"> {{d['actualfootprint'][0][1] | round(3)}} / {{d['actualfootprint'][0][0] | round(3)}} </td>
         <td border ="0"> {{d['dtheta'][1][0] | round(4)}} </td>
     </tr>
     <tr>
-        <td>Angle 3: <input type="number" name="a3" step=0.001 value = {{d['a3']}}></td>
+        <td>Angle 3: <input type="number" id="a3" name="a3" step=0.01 value = {{d['a3']}}></td>
         <td> {{d['preS1slit'][2][1] | round(3)}}</td>
         <td> {{d['slit1'][2] | round(3)}} </td>
         <td> {{d['slit2'][2] | round(3)}} </td>
         <td> {{d['postsampleslit'][2][1] | round(3)}}</td>
-        <td> {{d['minqvals'][2] | round(4)}} </td>
-        <td> {{d['maxqvals'][0] | round(4)}} </td>
+        <td> <span id="minQa3"></span> </td>
+        <td> <span id="maxQa3"></span> </td>
         <td/>
         <td border ="0"> {{d['dtheta'][2][0] | round(4)}} </td>
     </tr>
     <tr>
-        <td>Angle N: <input type="number" name="a4" step=0.001 value = {{d['a4']}}></td>
+        <td>Angle N: <input type="number" id="a4" name="a4" step=0.01 value = {{d['a4']}}></td>
         <td> {{d['preS1slit'][3][1] | round(3)}} </td>
         <td><input type="number" name="d1_a4" step=0.001 value = {{d['d1_a4']}}></td>
         <td><input type="number" name="d2_a4" step=0.001 value = {{d['d2_a4']}}></td>
         <td> {{d['postsampleslit'][3][1] | round(3)}}</td>
-        <td> {{d['minqvals'][3] | round(4)}} </td>
-        <td> {{d['maxqvals'][3] | round(4)}} </td>
+        <td> <span id="minQa4"></span> </td>
+        <td> <span id="maxQa4"></span> </td>
         <td border ="0"> {{d['actualfootprint'][3][1] | round(3)}} / {{d['actualfootprint'][3][0] | round(3)}}</td>
         <td border ="0"> {{d['dtheta'][3][0] | round(4)}} </td>
     </tr>
