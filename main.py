@@ -185,7 +185,6 @@ def calculate_variables(d):
         slitoptimiser.height_of_beam_after_dx(w1, w2, L12, -LpreS1)
         for w1, w2 in zip(d["slit1"], d["slit2"])
     ]
-    d["Qc"] = utils.qcrit(float(d["SLD1"]), float(d["SLD2"]))
 
 
 if __name__ == "__main__":
