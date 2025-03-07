@@ -4,12 +4,11 @@
     </head>
 <body>
 
-
 <img src="/static/images/angulator.svg" alt="Schematic of collimation system">
 <h3> Angular stuff </h3>
 
-<form action="/slits" method="POST">
-    <label for="name">Preconfigured Instrument</label>-
+<form id="calculator" action="/slits" method="POST">
+    Preconfigured Instrument
     <select name=instrument class=inputbox onchange='this.form.submit()' value={{d['instrument']}}>
         <option {% if d['instrument']=="Platypus" %}selected{% endif %}>Platypus</option>
         <option {% if d['instrument']=="Spatz" %}selected{% endif %}>Spatz</option>
@@ -89,7 +88,11 @@
     </tr>
     </table>
 
-    <h3> Q<sub>c</sub> calculator </h2>
+    Length: <input type="number" name="length" id="length", step=1 value={{d["length"]}}> mm <td/>
+    Width: <input type="number" name="width" id="width", step=1 value={{d["width"]}}> mm <td/>
+    <div>Hypoteneuse <span id="hypoteneuse"></span> mm </div>
+
+    <h4> Q<sub>c</sub> calculator </h4>
     SLD superphase <input type="number" name="SLD1" step=0.01 value = {{d['SLD1']}}></td> * 10<sup>-6</sup> Å<sup>-2</sup>
     <br/>
     SLD subphase <input type="number" name="SLD2" step=0.01 value = {{d['SLD2']}}></td> * 10<sup>-6</sup> Å<sup>-2</sup>
@@ -100,4 +103,7 @@
 </form>
 
 </body>
+<script src="/static/script.js"></script>
+
 </html>
+

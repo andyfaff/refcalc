@@ -28,6 +28,8 @@ defaultd = {
     "d2_a4": 1,
     "SLD1": 0,
     "SLD2": 2.07,
+    "length": 50,
+    "width": 40,
 }
 with open("bin/config.toml", "rb") as f:
     instrument_config = tomllib.load(f)
