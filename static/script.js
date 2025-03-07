@@ -21,24 +21,29 @@ const maxQa2 = document.getElementById('maxQa2');
 const maxQa3 = document.getElementById('maxQa3');
 const maxQa4 = document.getElementById('maxQa4');
 
+
+lambdamin.addEventListener('input', (event) => {
+    updateq();
+});
+
+lambdamax.addEventListener('input', (event) => {
+    updateq();
+});
+
 a1.addEventListener('input', (event) => {
-    minQa1.textContent = q(a1.value, lambdamax.value);
-    maxQa1.textContent = q(a1.value, lambdamin.value);
- });
+    updateq();
+});
 
 a2.addEventListener('input', (event) => {
-    minQa2.textContent = q(a2.value, lambdamax.value);
-    maxQa2.textContent = q(a2.value, lambdamin.value);
+    updateq();
 });
 
 a3.addEventListener('input', (event) => {
-    minQa3.textContent = q(a3.value, lambdamax.value);
-    maxQa3.textContent = q(a3.value, lambdamin.value);
+    updateq();
 });
 
 a4.addEventListener('input', (event) => {
-    minQa4.textContent = q(a4.value, lambdamax.value);
-    maxQa4.textContent = q(a4.value, lambdamin.value);
+    updateq();
 });
 
 length.addEventListener('input', (event) => {
@@ -60,14 +65,7 @@ nSLD2.addEventListener('input', (event) => {
 window.onload = function() {
     hypoteneuse.textContent = hypo(length.value, width.value);
     Qc.textContent = qcrit(nSLD1.value, nSLD2.value);
-    minQa1.textContent = q(a1.value, lambdamax.value);
-    maxQa1.textContent = q(a1.value, lambdamin.value);
-    minQa2.textContent = q(a2.value, lambdamax.value);
-    maxQa2.textContent = q(a2.value, lambdamin.value);
-    minQa3.textContent = q(a3.value, lambdamax.value);
-    maxQa3.textContent = q(a3.value, lambdamin.value);
-    minQa4.textContent = q(a4.value, lambdamax.value);
-    maxQa4.textContent = q(a4.value, lambdamin.value);
+    updateq();
 };
 
 function hypo(len, wid){
@@ -76,6 +74,17 @@ function hypo(len, wid){
 
 function qcrit(SLD1, SLD2){
     return Math.sqrt(16.0 * Math.PI * (SLD2 - SLD1) * 1.0e-6).toFixed(5);
+};
+
+function updateq(){
+    minQa1.textContent = q(a1.value, lambdamax.value);
+    maxQa1.textContent = q(a1.value, lambdamin.value);
+    minQa2.textContent = q(a2.value, lambdamax.value);
+    maxQa2.textContent = q(a2.value, lambdamin.value);
+    minQa3.textContent = q(a3.value, lambdamax.value);
+    maxQa3.textContent = q(a3.value, lambdamin.value);
+    minQa4.textContent = q(a4.value, lambdamax.value);
+    maxQa4.textContent = q(a4.value, lambdamin.value);
 };
 
 function q(angle, wavelength){
